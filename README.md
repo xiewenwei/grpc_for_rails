@@ -22,13 +22,13 @@ Or install it yourself as:
 
 ## Usage
 
-Start grpc_server:
+Start grpc_server and daemonize it:
 
-    $ bundle exec grpc_server_ctl start
+    $ bundle exec grpc_server -p grpc_server.pid -d
 
 Stop grpc_server:
 
-    $ bundle exec grpc_server_ctl stop
+    $ kill -TERM `cat grpc_server.pid`
 
 Generate grpc_server configuration scaffold:
 
@@ -38,13 +38,13 @@ It will generate file `<rails root>/config/grpc_for_rails.yaml` which includes a
 
 Generate grpc_server services scaffold:
 
-   $ bin/rails g grpc:services
+    $ bin/rails g grpc:services
 
 It will generate folder `<rails root>/app/grpc` and sub-folder [`base`, `protos`, `services`] which are the default location for `grpc_for_rails`
 
 Generate grpc_server services ruby codes for grpc proto files:
 
-   $ bin/rails g grpc:protos
+    $ bin/rails g grpc:protos
 
 It will generate ruby codes based on grpc proto files in `<rails root>/app/grpc/protos`.
 

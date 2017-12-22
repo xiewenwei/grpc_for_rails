@@ -1,0 +1,17 @@
+default: &default
+  host: 0.0.0.0
+  port: 3011
+  pidfile: tmp/pids/grpc_server.pid
+  logfile: log/grpc_server.log
+  pool_size: 5
+  daemonize: false
+
+development:
+  host: 127.0.0.1
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default
