@@ -1,8 +1,8 @@
 # GrpcForRails
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/grpc_for_rails`. To experiment with that code, run `bin/console` for an interactive prompt.
+Make grpc server and client easy for rails project.
 
-TODO: Delete this and the text above, and describe your gem
+grpc_for_rails provides a useful grpc_server wrapper and some flexible generators and rake tasks for rails project.
 
 ## Installation
 
@@ -22,7 +22,31 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Start grpc_server:
+
+   $ bundle exec grpc_server_ctl start
+
+Stop grpc_server:
+
+   $ bundle exec grpc_server_ctl stop
+
+Generate grpc_server configuration scaffold:
+
+   $ bin/rails g grpc:server_conf
+
+It will generate file `<rails root>/config/grpc_server.yaml` which includes all grpc_server configurations `grpc_for_rails` supported. You can change it for your need.
+
+Generate grpc_server services scaffold:
+
+   $ bin/rails g grpc:services
+
+It will generate folder `<rails root>/app/grpc` and sub-folder [`base`, `protos`, `services`] which are the default location for `grpc_for_rails`
+
+Generate grpc_server services ruby codes for grpc proto files:
+
+   $ bin/rails g grpc:protos
+
+It will generate ruby codes based on grpc proto files in `<rails root>/app/grpc/protos`.
 
 ## Development
 
