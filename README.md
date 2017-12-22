@@ -24,17 +24,17 @@ Or install it yourself as:
 
 Start grpc_server:
 
-   $ bundle exec grpc_server_ctl start
+    $ bundle exec grpc_server_ctl start
 
 Stop grpc_server:
 
-   $ bundle exec grpc_server_ctl stop
+    $ bundle exec grpc_server_ctl stop
 
 Generate grpc_server configuration scaffold:
 
-   $ bin/rails g grpc:server_conf
+    $ bin/rails g grpc:server_conf
 
-It will generate file `<rails root>/config/grpc_server.yaml` which includes all grpc_server configurations `grpc_for_rails` supported. You can change it for your need.
+It will generate file `<rails root>/config/grpc_for_rails.yaml` which includes all grpc_server configurations `grpc_for_rails` supported. You can change it for your need.
 
 Generate grpc_server services scaffold:
 
@@ -56,8 +56,8 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/grpc_for_rails. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/xiewenwei/grpc_for_rails. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## Code of Conduct
 
-Everyone interacting in the GrpcForRails project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/grpc_for_rails/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the GrpcForRails project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/xiewenwei/grpc_for_rails/blob/master/CODE_OF_CONDUCT.md).
