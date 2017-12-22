@@ -20,6 +20,10 @@ Or install it yourself as:
 
     $ gem install grpc_for_rails
 
+Run grpc:install generator after install gem:
+
+    $ bin/rails g grpc:install
+
 ## Usage
 
 Start grpc_server and daemonize it:
@@ -32,19 +36,20 @@ Stop grpc_server:
 
 Generate grpc_server configuration scaffold:
 
-    $ bin/rails g grpc:server_conf
-
-It will generate file `<rails root>/config/grpc_for_rails.yaml` which includes all grpc_server configurations `grpc_for_rails` supported. You can change it for your need.
-
-Generate grpc_server services scaffold:
-
-    $ bin/rails g grpc:services
+    $ bin/rails g grpc:install
 
 It will generate folder `<rails root>/app/grpc` and sub-folder [`base`, `protos`, `services`] which are the default location for `grpc_for_rails`
 
+And it will generate file `<rails root>/config/grpc_for_rails.yaml` which includes all grpc_server configurations `grpc_for_rails` supported. You can change it for your need.
+
+Generate grpc_server service scaffold (TODO):
+
+    $ bin/rails g grpc:service <model name>
+
+
 Generate grpc_server services ruby codes for grpc proto files:
 
-    $ bin/rails g grpc:protos
+    $ bin/rails g grpc:base
 
 It will generate ruby codes based on grpc proto files in `<rails root>/app/grpc/protos`.
 
