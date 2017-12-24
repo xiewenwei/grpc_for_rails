@@ -3,8 +3,8 @@ require 'rails/railtie'
 module GrpcForRails
   class Railtie < Rails::Railtie
     initializer 'grpc_for_rails.initialization' do |app|
-      $:.unshift "#{app.root}/app/grpc/base"
-      $:.unshift "#{app.root}/app/grpc/services"
+      $LOAD_PATH.unshift "#{app.root}/app/grpc/base"
+      $LOAD_PATH.unshift "#{app.root}/app/grpc/services"
     end
 
     rake_tasks do
