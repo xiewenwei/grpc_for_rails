@@ -1,6 +1,9 @@
 source "https://rubygems.org"
 
-git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
-
 # Specify your gem's dependencies in grpc_for_rails.gemspec
 gemspec
+
+gem 'rails', '~> 5.1.4'
+gem 'sqlite3'
+gem 'jbuilder', '~> 2.5'
+gem 'listen', '>= 3.0.5', '< 3.2'
