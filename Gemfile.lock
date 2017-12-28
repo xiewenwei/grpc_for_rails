@@ -69,7 +69,7 @@ GEM
       multi_json (~> 1.11)
       os (~> 0.9)
       signet (~> 0.7)
-    grpc (1.8.0)
+    grpc (1.7.3)
       google-protobuf (~> 3.1)
       googleapis-common-protos-types (~> 1.0.0)
       googleauth (>= 0.5.1, < 0.7)
@@ -162,6 +162,7 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 1.15)
+  grpc (~> 1.7.3)
   grpc_for_rails!
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
