@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package dummy_app;
+
+service GrpcTest {
+  rpc hi (TestRequest) returns (TestResult) {}
+}
+
+message TestRequest {
+  string message = 1;
+}
+
+message TestResult {
+  string message = 1;
+}
