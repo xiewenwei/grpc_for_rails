@@ -138,10 +138,12 @@ module GrpcForRails
     def services
       Dir["#{Rails.root}/app/grpc/services/**/*.rb"].each { |f| require f }
 
-      Dir["#{Rails.root}/app/grpc/services/*.rb"].map do |file|
+      result = Dir["#{Rails.root}/app/grpc/services/*.rb"].map do |file|
         class_name = file.split('/').last.sub(/\.rb$/, '').camelize
         Object.const_get class_name
       end
+      result.delete_if { |e| !(e < GRPC::GenericService) }
+      result
     end
 
     def load_rails_environment!
