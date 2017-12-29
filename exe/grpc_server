@@ -12,7 +12,7 @@ default_host_port = {
 
 options = {
   env: 'development',
-  config: 'config/grpc_for_rails.yml'
+  config: 'config/grpc_server.yml'
 }
 
 OptionParser.new do |opts|
@@ -28,7 +28,7 @@ OptionParser.new do |opts|
   opts.on('-e', '--environment RAILS_ENV', 'Rails env (default: development)') do |value|
     options[:env] = value
   end
-  opts.on('-c', '--config CONFIG_FILE', 'Config file (default: config/grpc_for_rails.yml)') do |value|
+  opts.on('-c', '--config CONFIG_FILE', 'Config file (default: config/grpc_server.yml)') do |value|
     options[:config] = value
   end
   opts.on('-s', '--size pool_size', 'pool size for grpc_server (default: 5)') do

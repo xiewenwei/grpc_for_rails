@@ -25,6 +25,6 @@ class InstallGeneratorTest < ::Rails::Generators::TestCase
   end
 
   def test_generates_config
-    assert_file "config/grpc_for_rails.yml", /port: 3011/
+    assert_file "config/grpc_server.yml", /port: 3011/
   end
 end

@@ -40,7 +40,7 @@ Generate grpc_server configuration scaffold:
 
 It will generate folder `<rails root>/app/grpc` and sub-folder [`base`, `protos`, `services`] which are the default location for `grpc_for_rails`
 
-And it will generate file `<rails root>/config/grpc_for_rails.yaml` which includes all grpc_server configurations `grpc_for_rails` supported. You can change it for your need.
+And it will generate file `<rails root>/config/grpc_server.yml` which includes all grpc_server configurations `grpc_for_rails` supported. You can change it for your need.
 
 Generate grpc_server service scaffold (TODO):
 

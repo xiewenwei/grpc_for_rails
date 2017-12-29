@@ -3,7 +3,7 @@ require 'rails/generators/base'
 module Grpc
   class InstallGenerator < Rails::Generators::Base
     source_root File.expand_path '../templates', __FILE__
-    desc "Install grpc_for_rails.yml file to your application."
+    desc "Install grpc_server.yml file to your application."
 
     def mkdirs
       empty_directory 'app/grpc/services'
@@ -12,7 +12,7 @@ module Grpc
     end
 
     def copy_config
-      template 'grpc_for_rails.yml', 'config/grpc_for_rails.yml'
+      template 'grpc_server.yml', 'config/grpc_server.yml'
     end
   end
 end
