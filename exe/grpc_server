@@ -1,60 +1,96 @@
 #!/usr/bin/env ruby
+
 require 'optparse'
 require 'yaml'
 require 'grpc_for_rails'
 require 'active_support/core_ext/hash'
 
-default_host_port = {
-  host: '0.0.0.0',
-  port: 3011,
-  pool_size: 5
-}
+def parse_command
+  options = {
+    env: 'development',
+    config: 'config/grpc_server.yml'
+  }
 
-options = {
-  env: 'development',
-  config: 'config/grpc_server.yml'
-}
+  subtext = <<HELP
+  Commands:
+    start   :  start grpc server (default command)
+    stop    :  stop grpc server
+    status  :  check grpc server status
+HELP
 
-OptionParser.new do |opts|
-  opts.banner = "Usage: grpc_server [options]"
+  global = OptionParser.new do |opts|
+    opts.banner = "Usage: grpc_server [options] [command] [options]"
+    opts.separator "GRPC options:"
+    opts.on('-h', '--host HOST', 'Host (default 0.0.0.0)') do |value|
+      options[:host] = value
+    end
+    opts.on('-t', '--port PORT', 'Port (default: 3011)') do |value|
+      options[:port] = value
+    end
+    opts.on('-e', '--environment RAILS_ENV', 'Rails env (default: development)') do |value|
+      options[:env] = value
+    end
+    opts.on('-c', '--config CONFIG_FILE', 'Config file (default: config/grpc_server.yml)') do |value|
+      options[:config] = value
+    end
+    opts.on('-s', '--size pool_size', 'pool size for grpc_server (default: 5)') do
+      options[:pool_size] = value.to_i
+    end
+    opts.separator ""
 
-  opts.separator "GRPC options:"
-  opts.on('-h', '--host HOST', 'Host (default 0.0.0.0)') do |value|
-    options[:host] = value
-  end
-  opts.on('-t', '--port PORT', 'Port (default: 3011)') do |value|
-    options[:port] = value
-  end
-  opts.on('-e', '--environment RAILS_ENV', 'Rails env (default: development)') do |value|
-    options[:env] = value
-  end
-  opts.on('-c', '--config CONFIG_FILE', 'Config file (default: config/grpc_server.yml)') do |value|
-    options[:config] = value
-  end
-  opts.on('-s', '--size pool_size', 'pool size for grpc_server (default: 5)') do
-    options[:pool_size] = value.to_i
-  end
-  opts.separator ""
+    opts.separator "Process options:"
+    opts.on("-d", "--daemonize", 'run daemonized in the background (default: false)') do
+      options[:daemonize] = true
+    end
+    opts.on("-p", "--pid PIDFILE", 'the pid filename') do |value|
+      options[:pidfile] = value
+    end
+    opts.on("-l", "--log LOGFILE", 'the log filename') do |value|
+      options[:logfile]   = value
+    end
 
-  opts.separator "Process options:"
-  opts.on("-d", "--daemonize", 'run daemonized in the background (default: false)') do
-    options[:daemonize] = true
+    opts.separator ""
+    opts.separator subtext
   end
-  opts.on("-p", "--pid PIDFILE", 'the pid filename') do |value|
-    options[:pidfile] = value
-  end
-  opts.on("-l", "--log LOGFILE", 'the log filename') do |value|
-    options[:logfile]   = value
-  end
-  opts.separator ""
-end.parse!
 
-if File.exists? options[:config]
-  config = YAML.load(File.read(options[:config]))
-  options = config[options[:env]].symbolize_keys.merge(options)
+  dup_opt_parser = global.dup
+  global.order!
+  command = ARGV.shift
+  command ||= 'start'
+
+  if %w(start stop status).include?(command)
+    dup_opt_parser.order!
+  else
+    abort("Wrong command #{command}")
+  end
+  [command, options]
 end
 
-options = default_host_port.merge(options)
+def main
+  command, options = parse_command
 
-puts "Start grpc_server with:\n #{options}"
-GrpcForRails::Server.new(options).run
+  if File.exists? options[:config]
+    config = YAML.load(File.read(options[:config]))
+    options = config[options[:env]].symbolize_keys.merge(options)
+  end
+
+  default_host_port = {
+    host: '0.0.0.0',
+    port: 3011,
+    pool_size: 5
+  }
+  options = default_host_port.merge(options)
+  server = GrpcForRails::Server.new(options)
+  case command
+    when 'start'
+      puts "Start grpc server with:\n #{options}"
+      server.run
+    when 'stop'
+      puts "Stop grpc server"
+      server.kill_me!
+    when 'status'
+      server.display_status
+  end
+end
+
+main()

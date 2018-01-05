@@ -25,6 +25,7 @@ module GrpcForRails
     def run
       check_pid
       daemonize if daemonize?
+      $PROGRAM_NAME = "grpc_server with #{@options[:host]}:#{@options[:port]}"
       write_pid
 
       if logfile?
@@ -33,6 +34,34 @@ module GrpcForRails
         suppress_output
       end
       startup
+    end
+
+    def kill_me!
+      if pidfile?
+        case pid_status(pidfile)
+        when :running, :not_owned
+          system "kill -TERM #{File.read(pidfile)}"
+        when :dead
+          File.delete(pidfile)
+        end
+      else
+        puts "No pidfile"
+      end
+    end
+
+    def display_status
+      if pidfile?
+        case pid_status(pidfile)
+        when :running, :not_owned
+          puts "grpc_server with #{@options[:host]}:#{@options[:port]} is running. pid is #{File.read(pidfile)}"
+          return
+        when :dead
+          File.delete(pidfile)
+        end
+        puts "grpc_server is not running."
+      else
+        puts "No pidfile"
+      end
     end
 
     private
